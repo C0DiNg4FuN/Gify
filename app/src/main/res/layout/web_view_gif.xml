@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rv_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <WebView
-        android:id="@+id/web_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/wbLL">
 
-</LinearLayout>
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/wv_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fab_download"
+        android:layout_margin="16dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/wbLL"
+        app:layout_anchorGravity="bottom|center"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/wv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fab_share"
+        android:layout_margin="16dp"
+        app:fabSize="mini"
+        app:layout_anchor="@id/wbLL"
+        app:layout_anchorGravity="bottom|right"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/wv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fab_details"
+        android:layout_margin="16dp"
+        app:fabSize="mini"
+        app:layout_anchor="@id/wbLL"
+        app:layout_anchorGravity="bottom|left"/>
+
+</android.support.design.widget.CoordinatorLayout>

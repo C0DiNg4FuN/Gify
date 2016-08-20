@@ -2,12 +2,13 @@ package com.coding4fun.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.coding4fun.R;
@@ -57,7 +58,18 @@ public class GifRVAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>
             final int index = getAdapterPosition();
             final GifModel item = items.get(index);
             if(v.getId() == R.id.gif_details){
-
+                //prepare details
+                String msg = "Name: "+item.getName()+"\n";
+                msg += "Category: "+item.getCategory()+"\n";
+                msg += "Size: "+item.getSize()+"\n";
+                //build & show dialog
+                AlertDialog.Builder d = new AlertDialog.Builder(context);
+                d.setTitle("GIF Details");
+                d.setMessage(msg);
+                d.setIcon(R.drawable.gif_icon);
+                d.setNegativeButton("OK", null);
+                AlertDialog a = d.create();
+                a.show();
             } else if(v.getId() == R.id.gif_share){
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
@@ -70,7 +82,8 @@ public class GifRVAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>
                 openIntent.setData(Uri.parse(item.getLink()));
                 context.startActivity(openIntent);*/
                 Intent viewIntent = new Intent(context, WebView.class);
-                viewIntent.putExtra("url",item.getLink());
+                //viewIntent.putExtra("url",item.getLink());
+                viewIntent.putExtra("gif",item);
                 context.startActivity(viewIntent);
             }
 		}
@@ -83,10 +96,12 @@ public class GifRVAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>
     }
 
     public class LoadingViewHolder extends RecyclerView.ViewHolder {
-        ProgressBar pb;
+        //ProgressBar pb;
+        android.webkit.WebView wv;
         public LoadingViewHolder(View itemView) {
             super(itemView);
-            pb = (ProgressBar) itemView.findViewById(R.id.loading_pb);
+            //pb = (ProgressBar) itemView.findViewById(R.id.loading_pb);
+            wv = (android.webkit.WebView) itemView.findViewById(R.id.loading_wv);
         }
     }
 
@@ -135,6 +150,10 @@ public class GifRVAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>
             vh.name.setText(item.getName());
             vh.category.setText(item.getCategory());
             vh.bitmap.setImageBitmap(item.getBitmap());
+        } else if(viewHolder instanceof LoadingViewHolder) {
+            LoadingViewHolder vh = (LoadingViewHolder) viewHolder;
+            vh.wv.setBackgroundColor(Color.TRANSPARENT);
+            vh.wv.loadUrl("file:///android_asset/loading.html");
         }
     }
 

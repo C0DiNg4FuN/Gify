@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rv_bg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/mLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <include android:id="@+id/tb" layout="@layout/toolbar"/>
 
@@ -15,11 +21,15 @@
         android:layout_margin="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/add"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/mLL"
+        app:layout_anchorGravity="bottom|right"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
